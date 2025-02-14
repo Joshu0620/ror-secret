@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Valentine's Day</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #ffccdd, #ff99cc);
+        text-align: center;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+        animation: fadeIn 2s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .container {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 {
+        font-size: 6rem;
+        color: #d63384;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        animation: pop 1.5s ease-in-out;
+        margin-bottom: 50px;
+      }
+
+      @keyframes pop {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .button-container {
+        display: flex;
+        gap: 20px;
+        position: absolute;
+        top: 65vh;
+      }
+
+      .btn,
+      .cancel-btn {
+        padding: 12px 24px;
+        font-size: 1.5rem;
+        color: white;
+        background: linear-gradient(90deg, #d63384, #ff6699);
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+        text-decoration: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        min-width: 150px;
+      }
+
+      .cancel-btn {
+        background: linear-gradient(90deg, #ff4444, #ff6666);
+        display: none;
+      }
+
+      .btn:hover,
+      .cancel-btn:hover {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Happy Valentine's Day! 💖</h1>
+      <div class="button-container">
+        <button class="btn" id="trickButton">Click here</button>
+        <button class="cancel-btn" id="cancelButton">Cancel ❌</button>
+      </div>
+    </div>
+
+    <script>
+      let clickCount = 0;
+      const button = document.getElementById("trickButton");
+      const cancelButton = document.getElementById("cancelButton");
+      const buttonContainer = document.querySelector(".button-container");
+
+      const trickMessages = [
+        "ooops! 😜",
+        "isa pa hehe! 🤭",
+        "kulang pa boss! 😆",
+        "lapit na! 😉",
+        "sure ka? 😏",
+        "sure ka na talaga! 🔥",
+        "sige tuloy! 😘",
+        "sorry na boss! 😂",
+        "lapit na! ❤️",
+        "onti nalang! 💕",
+        "rororor! 💖",
+        "last na to! 😍",
+      ];
+
+      const cancelMessages = [
+        "asa, bawal yan 🤣",
+        "sinabi ng bawal eh! 😈",
+        "bawal nga! 😆",
+        "suko na agad? 😏",
+        "di pwede boss! 🤭",
+        "ang kulit! 😂",
+        "nonono 😜",
+      ];
+
+      function moveButtons() {
+        const maxX = window.innerWidth - buttonContainer.clientWidth - 50;
+        const maxY = window.innerHeight - buttonContainer.clientHeight - 200;
+
+        let newX = Math.random() * maxX + 20;
+        let newY = Math.random() * maxY + 200;
+
+        buttonContainer.style.left = `${newX}px`;
+        buttonContainer.style.top = `${newY}px`;
+      }
+
+      button.addEventListener("click", function () {
+        clickCount++;
+
+        if (clickCount < 12) {
+          button.innerText = trickMessages[clickCount];
+          moveButtons();
+          if (clickCount === 1) cancelButton.style.display = "inline-block";
+        } else {
+          button.innerText = "Finally! ❤️";
+          setTimeout(() => {
+            document.body.style.opacity = "0";
+            setTimeout(() => {
+              window.location.href = "main.html";
+            }, 500);
+          }, 1000);
+        }
+      });
+
+      cancelButton.addEventListener("click", function () {
+        cancelButton.innerText =
+          cancelMessages[Math.floor(Math.random() * cancelMessages.length)];
+        moveButtons();
+      });
+    </script>
+  </body>
+</html>
